@@ -11,8 +11,8 @@ const Mailjet = require('node-mailjet');
 const transporter = nodemailer.createTransport({
     service: 'hotmail',
     auth: {
-        user: 'rentifyarun@hotmail.com',
-        pass: 'Rentify@2001'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -100,7 +100,7 @@ router.post('/interest/:propertyId/:userId',  async (req, res) => {
 
        
         const buyOpt = {
-            from: "rentifyarun@hotmail.com",
+            from: "process.env.EMAIL_USER",
             to: buyer.email,
             subject: "Interest in Property",
             text: `Dear ${buyer.firstName},\n\nYou have shown interest in the property with Name: ${property.title}.\nContact Details\nEmail:${seller.email}\nPhonenumber:${seller.phoneNumber}\n\nThank you,\nRentify Team`,
@@ -108,7 +108,7 @@ router.post('/interest/:propertyId/:userId',  async (req, res) => {
 
      
         const sellOpt = {
-            from: "rentifyarun@hotmail.com",
+            from: "process.env.EMAIL_USER",
             to: seller.email,
             subject: "Property Interest Notification",
             text: `Dear ${seller.firstName},\n\nA buyer has shown interest in your property with Name: ${property._id}.
